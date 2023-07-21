@@ -1,4 +1,5 @@
 import psycopg2
+from settings import HOST, DATABASE, DB_NAME, USER, PASSWORD, PORT
 
 class DBManager:
     def __init__(self, host, database, user, password, port):
@@ -9,10 +10,11 @@ class DBManager:
         self.port = port
 
         self.conn = psycopg2.connect(
-            host="localhost",
-            database="postgres",
-            user="postgres",
-            password="1613")
+            host=host,
+            database=database,
+            user=user,
+            password=password
+        )
 
     def create_database(self, name):
         conn = psycopg2.connect(
@@ -38,7 +40,7 @@ class DBManager:
             user=self.user,
             password=self.password,
             port=self.port,
-            database="hh"
+            database=DB_NAME
         )
         with conn.cursor() as cur:
             cur.execute("""
@@ -67,10 +69,10 @@ class DBManager:
     @staticmethod
     def get_companies_and_vacancies_count():
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD)
         query = """
            SELECT employer, COUNT(*) AS vacancies_count
            FROM vacancies
@@ -91,10 +93,10 @@ class DBManager:
     @staticmethod
     def save_employers_to_db(data):
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD)
 
         with conn.cursor() as cursor:
             for employer in data:
@@ -108,10 +110,10 @@ class DBManager:
     @staticmethod
     def save_vacancies_to_db(data):
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD)
 
         with conn.cursor() as cursor:
             for vacancy in data:
@@ -125,10 +127,11 @@ class DBManager:
     @staticmethod
     def get_all_vacancies():
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD
+        )
 
         query = """
         SELECT * from vacancies
@@ -147,10 +150,11 @@ class DBManager:
     @staticmethod
     def get_avg_salary():
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD
+        )
 
         query = """
         SELECT AVG(salary) AS avg_salary
@@ -172,10 +176,11 @@ class DBManager:
     def get_vacancies_with_higher_salary():
         avg_salary = 62091
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD
+        )
 
         query = """
         SELECT * 
@@ -196,10 +201,11 @@ class DBManager:
     @staticmethod
     def get_vacancies_with_keyword(keyword: str):
         conn = psycopg2.connect(
-            host="localhost",
-            database="hh",
-            user="postgres",
-            password="1613")
+            host=HOST,
+            database=DB_NAME,
+            user=USER,
+            password=PASSWORD
+        )
 
         query = """
         SELECT * 
